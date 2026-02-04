@@ -1,0 +1,27 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        { "internalType": "string", "name": "donorId", "type": "string" },
+        { "internalType": "string", "name": "patientId", "type": "string" },
+        { "internalType": "string", "name": "txHash", "type": "string" }
+      ],
+      "name": "recordMatch",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": false, "internalType": "string", "name": "donorId", "type": "string" },
+        { "indexed": false, "internalType": "string", "name": "patientId", "type": "string" },
+        { "indexed": false, "internalType": "address", "name": "hospital", "type": "address" },
+        { "indexed": false, "internalType": "string", "name": "txHash", "type": "string" }
+      ],
+      "name": "TransactionRecorded",
+      "type": "event"
+    }
+  ],
+  "address": "0xF6809608B6c3625a8CfdB4A970328616126b316E"
+}

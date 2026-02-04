@@ -1,0 +1,15 @@
+input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 6px #007bff50;
+}
+
+
+input[id^="otp-"] {
+  transition: all 0.2s ease;
+  border: 2px solid #ccc;
+}
+input[id^="otp-"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px #007bff50;
+}

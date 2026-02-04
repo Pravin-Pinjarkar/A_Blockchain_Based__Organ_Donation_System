@@ -1,0 +1,161 @@
+/* ====== Page Layout ====== */
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+/* ====== Toast Notifications ====== */
+.Toastify__toast--success {
+  background-color: #16a34a;
+}
+.Toastify__toast--error {
+  background-color: #dc2626;
+}
+
+/* ====== Modal Styling ====== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content h3 {
+  text-align: center;
+  color: #1d4ed8;
+  margin-bottom: 20px;
+}
+
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  outline: none;
+  color: #111827;
+}
+
+.modal-content input:focus,
+.modal-content select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.modal-actions button {
+  width: 48%;
+}
+
+/* ====== Table Styling ====== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 3px 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+  background-color: #dee3e1;
+  color: white;
+  padding: 3px 6px;
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background-color: #f3f4f6;
+}
+
+tr:hover {
+  background-color: #e0e7ff;
+  transition: 0.3s;
+}
+
+/* ====== Badge Styling ====== */
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+.bg-green-500\/10 {
+  background-color: rgba(34,197,94,0.1);
+  color: #16a34a;
+}
+
+.bg-red-500\/10 {
+  background-color: rgba(239,68,68,0.1);
+  color: #dc2626;
+}
+
+/* ====== Buttons Styling ====== */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+button[variant="outline"] {
+  background-color: white;
+  border: 1px solid #2563eb;
+  color: #2563eb;
+}
+
+button[variant="outline"]:hover {
+  background-color: #2563eb;
+  color: white;
+}
+
+button[variant="destructive"] {
+  background-color: #dc2626;
+  color: white;
+}
+
+button[variant="destructive"]:hover {
+  background-color: #b91c1c;
+}
+
+/* ====== Animations ====== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
