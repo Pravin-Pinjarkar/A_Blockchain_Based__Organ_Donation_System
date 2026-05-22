@@ -4,13 +4,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-// 🌍 Pages
+// Pages
 import Landing from "./pages/Landing";
 import SignIn from "./pages/dashboard/SignIn";
 import SignUp from "./pages/dashboard/SignUp";
 import ForgotPassword from "@/pages/dashboard/ForgotPassword";
 
-// 🧩 Dashboard Layout + Subpages
+// Dashboard Layout + Subpages
 import { DashboardLayout } from "./components/DashboardLayout";
 import Overview from "./pages/dashboard/Overview";
 import Donors from "./pages/dashboard/Donors";
@@ -31,7 +31,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          {/* 🏠 Public Routes */}
+          {/* Public Routes */}
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
@@ -39,7 +39,7 @@ const App = () => (
           <Route path="/hospitals" element={<Hospitals />} />
 
 
-          {/* 📊 Dashboard Routes */}
+          {/* Dashboard Routes */}
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<Navigate to="overview" replace />} />
             <Route path="overview" element={<Overview />} />
@@ -52,7 +52,7 @@ const App = () => (
             <Route path="matching" element={<Matching />} />
           </Route>
 
-          {/* 🚫 404 Fallback */}
+          {/* 404 Fallback */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

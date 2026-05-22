@@ -34,7 +34,9 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 
-export function AppSidebar() {
+import { Cpu } from "lucide-react";
+
+export function AppSidebar({ setShowChatbot }: any) {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [showDialog, setShowDialog] = useState(false);
@@ -159,6 +161,26 @@ if (accountType === "hospital admin") {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
+
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setShowChatbot(true);
+                    }}
+                    className="group flex items-center gap-3 px-2 py-2 text-red-500 hover:bg-red-50 transition-all duration-200"
+                  >
+                    <Cpu className="h-4 w-4 shrink-0 transition-all duration-300 group-hover:drop-shadow-[0_0_5px_rgba(239,68,68,0.6)]" />
+
+                    <span className="text-sm font-medium">OrganAI</span>
+
+                    {/* 🔴 RED BADGE */}
+                    <span className="ml-auto text-[10px] px-2 py-[2px] rounded-full bg-red-500 text-white animate-pulse">
+                      AI
+                    </span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
 
                 {/* Logout Button */}
                 <SidebarMenuItem>

@@ -142,7 +142,7 @@ export default function SignIn() {
             localStorage.setItem("email", data.email);
             localStorage.setItem("fullName", data.fullName);      // ⭐ add this
             localStorage.setItem("accountType", normalizedType);
-
+            localStorage.setItem("loginTime", Date.now().toString());
 
             navigate("/dashboard");
             
@@ -180,7 +180,10 @@ export default function SignIn() {
                   type="email"
                   placeholder="Enter your email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                      setEmail(e.target.value);
+                      localStorage.setItem("email", e.target.value);
+                    }}
                   required
                 />
               </div>
@@ -189,7 +192,7 @@ export default function SignIn() {
                 <div className="flex items-center justify-between mb-1">
                   <Label htmlFor="password">Password</Label>
                   <Link
-                    to="/ForgotPassword"
+                    to="/forgot-password"
                     className="text-xs text-primary hover:underline"
                   >
                     Forgot password?

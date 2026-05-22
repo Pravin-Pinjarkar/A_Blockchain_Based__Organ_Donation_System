@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
@@ -87,4 +88,74 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+/* 🚀 ROBOT ENTRY */
+@keyframes robotEntry {
+  from {
+    transform: translateY(80px) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-robotEntry {
+  animation: robotEntry 0.5s ease-out;
+}
+
+/* 🤖 SOFT BOUNCE */
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-bounceSlow {
+  animation: bounceSlow 2s infinite;
+}
+
+/* 💬 TOOLTIP */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-in;
+}
+
+/* 💬 CHATBOT */
+@keyframes slideIn {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.4s ease-out;
+}
+
+
+@keyframes micGlow {
+  0% { box-shadow: 0 0 0px rgba(229, 24, 69, 0.6); }
+  50% { box-shadow: 0 0 10px rgba(229, 24, 69, 0.9); }
+  100% { box-shadow: 0 0 0px rgba(229, 24, 69, 0.6); }
+}
+
+.mic-active {
+  animation: micGlow 1.2s infinite;
 }

@@ -3,6 +3,7 @@ pragma solidity ^0.8.20;
 
 contract OrganRegistry {
 
+    /* ================= EXISTING STRUCT ================= */
     struct TransactionRecord {
         string donorId;
         string patientId;
@@ -11,11 +12,25 @@ contract OrganRegistry {
         string txHash;
     }
 
-    event DonorRegistered(uint indexed donorId, address indexed account, uint8 organ, uint8 blood, bool deceased);
-    event PatientRegistered(uint indexed patientId, address indexed account, uint8 organ, uint8 blood, uint8 urgency);
-    event MatchMade(uint indexed donorId, uint indexed patientId, uint8 organ);
+    TransactionRecord[] public transactions;
 
-    // 🔥 FIXED — flat params (NO struct emission)
+    /* ================= NEW SHIPMENT STRUCT ================= */
+    struct Shipment {
+        uint id;
+        address sender;
+        address receiver;
+        string pickupTime;
+        uint distance;
+        uint price;
+        uint timestamp;
+    }
+
+    Shipment[] public shipments;
+
+    uint public shipmentCount;
+
+    /* ================= EVENTS ================= */
+
     event TransactionRecorded(
         string donorId,
         string patientId,
@@ -23,7 +38,31 @@ contract OrganRegistry {
         string txHash
     );
 
-    TransactionRecord[] public transactions;
+    event ShipmentCreated(
+        uint shipmentId,
+        address sender,
+        address receiver,
+        string pickupTime,
+        uint distance,
+        uint price,
+        uint timestamp
+    );
+
+    // ✅ START SHIPMENT EVENT
+    event ShipmentStarted(
+        address sender,
+        address receiver,
+        string recipientId
+    );
+
+    // ✅ NEW COMPLETE SHIPMENT EVENT
+    event ShipmentCompleted(
+        address sender,
+        address receiver,
+        string recipientId
+    );
+
+    /* ================= MATCH FUNCTION ================= */
 
     function recordMatch(
         string calldata donorId,
@@ -40,11 +79,84 @@ contract OrganRegistry {
             })
         );
 
-        // 🔥 EMIT FLAT VALUES (frontend readable)
         emit TransactionRecorded(donorId, patientId, msg.sender, txHash);
     }
 
-    function getTransactionCount() external view returns (uint) {
-        return transactions.length;
+    /* ================= CREATE SHIPMENT ================= */
+
+    function createShipment(
+        address _receiver,
+        string calldata _pickupTime,
+        uint _distance,
+        uint _price
+    ) external {
+        shipmentCount++;
+
+        shipments.push(
+            Shipment({
+                id: shipmentCount,
+                sender: msg.sender,
+                receiver: _receiver,
+                pickupTime: _pickupTime,
+                distance: _distance,
+                price: _price,
+                timestamp: block.timestamp
+            })
+        );
+
+        emit ShipmentCreated(
+            shipmentCount,
+            msg.sender,
+            _receiver,
+            _pickupTime,
+            _distance,
+            _price,
+            block.timestamp
+        );
+    }
+
+    /* ================= START SHIPMENT ================= */
+
+    function startShipment(
+        address receiver,
+        string memory recipientId
+    ) public {
+        emit ShipmentStarted(msg.sender, receiver, recipientId);
+    }
+
+    /* ================= COMPLETE SHIPMENT (NEW) ================= */
+
+    function completeShipment(
+        address receiver,
+        string memory recipientId
+    ) public {
+        emit ShipmentCompleted(msg.sender, receiver, recipientId);
+    }
+
+    /* ================= VIEW FUNCTIONS ================= */
+
+    function getShipmentCount() external view returns (uint) {
+        return shipments.length;
+    }
+
+    function getShipment(uint index) external view returns (
+        uint id,
+        address sender,
+        address receiver,
+        string memory pickupTime,
+        uint distance,
+        uint price,
+        uint timestamp
+    ) {
+        Shipment memory s = shipments[index];
+        return (
+            s.id,
+            s.sender,
+            s.receiver,
+            s.pickupTime,
+            s.distance,
+            s.price,
+            s.timestamp
+        );
     }
 }

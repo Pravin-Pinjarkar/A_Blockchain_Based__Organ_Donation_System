@@ -2,6 +2,19 @@
   "abi": [
     {
       "inputs": [
+        { "internalType": "address", "name": "_receiver", "type": "address" },
+        { "internalType": "string", "name": "_pickupTime", "type": "string" },
+        { "internalType": "uint256", "name": "_distance", "type": "uint256" },
+        { "internalType": "uint256", "name": "_price", "type": "uint256" }
+      ],
+      "name": "createShipment",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+
+    {
+      "inputs": [
         { "internalType": "string", "name": "donorId", "type": "string" },
         { "internalType": "string", "name": "patientId", "type": "string" },
         { "internalType": "string", "name": "txHash", "type": "string" }
@@ -11,6 +24,45 @@
       "stateMutability": "nonpayable",
       "type": "function"
     },
+
+    {
+      "inputs": [
+        { "internalType": "address", "name": "receiver", "type": "address" },
+        { "internalType": "string", "name": "recipientId", "type": "string" }
+      ],
+      "name": "startShipment",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+
+    
+    {
+      "inputs": [
+        { "internalType": "address", "name": "receiver", "type": "address" },
+        { "internalType": "string", "name": "recipientId", "type": "string" }
+      ],
+      "name": "completeShipment",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": false, "internalType": "uint256", "name": "shipmentId", "type": "uint256" },
+        { "indexed": false, "internalType": "address", "name": "sender", "type": "address" },
+        { "indexed": false, "internalType": "address", "name": "receiver", "type": "address" },
+        { "indexed": false, "internalType": "string", "name": "pickupTime", "type": "string" },
+        { "indexed": false, "internalType": "uint256", "name": "distance", "type": "uint256" },
+        { "indexed": false, "internalType": "uint256", "name": "price", "type": "uint256" },
+        { "indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+      ],
+      "name": "ShipmentCreated",
+      "type": "event"
+    },
+
     {
       "anonymous": false,
       "inputs": [
@@ -21,7 +73,31 @@
       ],
       "name": "TransactionRecorded",
       "type": "event"
+    },
+
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": false, "internalType": "address", "name": "sender", "type": "address" },
+        { "indexed": false, "internalType": "address", "name": "receiver", "type": "address" },
+        { "indexed": false, "internalType": "string", "name": "recipientId", "type": "string" }
+      ],
+      "name": "ShipmentStarted",
+      "type": "event"
+    },
+
+    
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": false, "internalType": "address", "name": "sender", "type": "address" },
+        { "indexed": false, "internalType": "address", "name": "receiver", "type": "address" },
+        { "indexed": false, "internalType": "string", "name": "recipientId", "type": "string" }
+      ],
+      "name": "ShipmentCompleted",
+      "type": "event"
     }
   ],
-  "address": "0xF6809608B6c3625a8CfdB4A970328616126b316E"
+
+  "address": "0x0E82D4E358eE1B0C75E15B35a9BEAC4E7645435e"
 }
