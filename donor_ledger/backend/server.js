@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 // const sgMail = require("@sendgrid/mail");
 const nodemailer = require("nodemailer");
@@ -15,11 +15,6 @@ const path = require("path");
 const fs = require("fs");
 const { Server } = require("socket.io");
 const multer = require("multer");
-
-// Create uploads folder if it doesn't exist
-if (!fs.existsSync("uploads")) {
-  fs.mkdirSync("uploads");
-}
 require("dotenv").config();
 
 //user profile image upload configuration
@@ -1682,7 +1677,7 @@ app.post("/api/upload-profile", upload.single("photo"), async (req, res) => {
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+    const imageUrl = `http://localhost:5000/uploads/${req.file.filename}`;
 
     // ✅ SAVE IMAGE IN DB
     const user = await User.findOneAndUpdate(
@@ -2223,7 +2218,7 @@ app.get("/api/match/status/:txHash", async (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 // Serve React Frontend (if built)
-const frontendPath = path.join(__dirname, "dist");
+const frontendPath = path.join(__dirname, "..", "build");
 if (fs.existsSync(frontendPath)) {
   app.use(express.static(frontendPath));
 
@@ -2236,14 +2231,13 @@ if (fs.existsSync(frontendPath)) {
 }
 
 // Start server
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
-  console.log(`✓ WebSocket ready for real-time updates`);
-  console.log(`✓ Health check: http://localhost:${PORT}/health`);
-  console.log(`✓ API endpoints: http://localhost:${PORT}/api/endpoints`);
-  console.log(`✓ Connected clients: ${io.engine.clientsCount}`);
+  console.log("Socket.IO server is ready");
 
   if (contractInstance) {
     console.log(`✓ Blockchain connected: ${process.env.CONTRACT_ADDRESS}`);
   }
 });
+  
+
