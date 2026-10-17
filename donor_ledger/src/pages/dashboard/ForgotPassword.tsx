@@ -47,7 +47,7 @@ export default function ForgotPassword() {
   // 🔥 SEND OTP
   const handleSendOtp = async () => {
     try {
-      const res = await fetch("http://localhost:5000/forgot-password", {
+      const res = await fetch("https://organ-chain-backend-by-pravin.onrender.com/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -83,7 +83,7 @@ export default function ForgotPassword() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/reset-password", {
+      const res = await fetch("https://organ-chain-backend-by-pravin.onrender.com/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp, newPassword }),

@@ -43,7 +43,7 @@ export default function SignIn() {
 
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/signin", {
+      const res = await fetch("https://organ-chain-backend-by-pravin.onrender.com/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, accountType }),
@@ -72,7 +72,7 @@ export default function SignIn() {
     try {
       setCanResend(false);
       setTimer(60);
-      const res = await fetch("http://localhost:5000/signin", {
+      const res = await fetch("https://organ-chain-backend-by-pravin.onrender.com/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, accountType }),
@@ -119,7 +119,7 @@ export default function SignIn() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/verify-otp", {
+      const res = await fetch("https://organ-chain-backend-by-pravin.onrender.com/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp: otpValue }),

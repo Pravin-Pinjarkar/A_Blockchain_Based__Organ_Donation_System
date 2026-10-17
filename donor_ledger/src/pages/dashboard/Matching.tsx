@@ -13,7 +13,7 @@ import {
   validateMatchForBlockchain,
 } from "@/lib/organMatching";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "https://organ-chain-backend-by-pravin.onrender.com";
 
 /************* TYPE DEFINITIONS *************/
 interface DonorInfo {

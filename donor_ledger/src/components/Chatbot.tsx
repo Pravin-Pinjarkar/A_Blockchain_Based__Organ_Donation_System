@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { X, Minus, Maximize2, Minimize2 } from "lucide-react";
 import { Mic } from "lucide-react";
-const API_URL = "http://localhost:5000";
+const API_URL = "https://organ-chain-backend-by-pravin.onrender.com";
 
 export default function Chatbot({ currentShipment, setShowChatbot }: any) {
   // LOAD CHAT HISTORY

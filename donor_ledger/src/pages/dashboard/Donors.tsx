@@ -40,7 +40,7 @@ const Donors: React.FC = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [userRole, setUserRole] = useState("");
 
-  const API_URL = "http://localhost:5000/donors";
+  const API_URL = "https://organ-chain-backend-by-pravin.onrender.com/donors";
 
   // ✅ Fetch user role
   const fetchUserRole = async () => {
@@ -49,7 +49,7 @@ const Donors: React.FC = () => {
       if (!email) return;
       
 
-      const res = await fetch(`http://localhost:5000/api/userdetails/${email}`);
+      const res = await fetch(`https://organ-chain-backend-by-pravin.onrender.com/api/userdetails/${email}`);
       const data = await res.json();
 
       if (data && data.accountType) {

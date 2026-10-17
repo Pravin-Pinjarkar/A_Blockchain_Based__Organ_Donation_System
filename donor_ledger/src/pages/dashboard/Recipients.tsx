@@ -51,7 +51,7 @@ const Recipients: React.FC = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [userRole, setUserRole] = useState("");
 
-  const API_URL = "http://localhost:5000/recipients";
+  const API_URL = "https://organ-chain-backend-by-pravin.onrender.com/recipients";
 
   /* Fetch user role */
   const fetchUserRole = async () => {
@@ -59,7 +59,7 @@ const Recipients: React.FC = () => {
       const email = localStorage.getItem("email");
       if (!email) return;
 
-      const res = await fetch(`http://localhost:5000/api/userdetails/${email}`);
+      const res = await fetch(`https://organ-chain-backend-by-pravin.onrender.com/api/userdetails/${email}`);
       const data = await res.json();
 
       if (data && data.accountType) setUserRole(data.accountType);

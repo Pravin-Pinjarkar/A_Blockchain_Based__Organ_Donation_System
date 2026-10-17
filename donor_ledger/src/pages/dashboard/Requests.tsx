@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Search, Download, Filter, Loader2 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://organ-chain-backend-by-pravin.onrender.com";
 
 interface RequestData {
   _id: string;

@@ -17,7 +17,7 @@ import autoTable from "jspdf-autotable";
 import { CheckCircle } from "lucide-react";
 import Swal from "sweetalert2";
 import QRCode from "react-qr-code";
-const API_URL = "http://localhost:5000";
+const API_URL = "https://organ-chain-backend-by-pravin.onrender.com";
 const themeColor = "#E51845";
 import { QRCodeCanvas } from "qrcode.react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
@@ -132,7 +132,7 @@ const [profile, setProfile] = useState({
 }, []);
 
 useEffect(() => {
-  socketRef.current = io("http://localhost:5000");
+  socketRef.current = io("https://organ-chain-backend-by-pravin.onrender.com");
 
   return () => {
     socketRef.current.disconnect();

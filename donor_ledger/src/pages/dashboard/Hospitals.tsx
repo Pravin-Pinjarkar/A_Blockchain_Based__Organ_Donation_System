@@ -28,7 +28,7 @@ import "./Hospital.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://organ-chain-backend-by-pravin.onrender.com";
 const socket = io(API_URL);
 
 const userRole = localStorage.getItem("accountType");

@@ -7,7 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "https://organ-chain-backend-by-pravin.onrender.com";
 const socket = io(API_URL);
 
 const Overview = () => {
