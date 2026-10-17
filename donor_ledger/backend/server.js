@@ -29,16 +29,22 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+
 dotenv.config();
-// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+// Gmail SMTP configuration
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // Use STARTTLS on port 587
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  connectionTimeout: 15000,
+  greetingTimeout: 15000,
+  socketTimeout: 20000,
 });
-
 
 
 //delivery organ logic
@@ -1677,7 +1683,7 @@ app.post("/api/upload-profile", upload.single("photo"), async (req, res) => {
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const imageUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+    const imageUrl = `https://organ-chain-backend-by-pravin.onrender.com/uploads/${req.file.filename}`;
 
     // ✅ SAVE IMAGE IN DB
     const user = await User.findOneAndUpdate(
