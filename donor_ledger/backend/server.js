@@ -29,14 +29,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-
 dotenv.config();
 
-// Gmail SMTP configuration
+// Brevo SMTP configuration
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // Use STARTTLS on port 587
+  host: "smtp-relay.brevo.com",
+  port: 2525,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -45,7 +44,6 @@ const transporter = nodemailer.createTransport({
   greetingTimeout: 15000,
   socketTimeout: 20000,
 });
-
 
 //delivery organ logic
 const sendDeliveryMail = async (shipment) => {
@@ -57,7 +55,7 @@ const sendDeliveryMail = async (shipment) => {
     if (!recipient?.email) return;
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: process.env.EMAIL_SENDER,
       // ✅ multiple emails
       to: [
         recipient.email,              // from DB
@@ -742,7 +740,7 @@ app.post("/signin", async (req, res) => {
     // await sgMail.send(msg);
 
   await transporter.sendMail({
-  from: process.env.EMAIL_USER,
+  from: process.env.EMAIL_SENDER,
   to: email,
   subject: "YOUR LIFELINK LOGIN OTP",
   html: msg.html,
@@ -817,7 +815,7 @@ app.post("/forgot-password", async (req, res) => {
 
     // 📧 Send email
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: process.env.EMAIL_SENDER,
       to: email,
       subject: "Password Reset OTP",
       html: `<h2>Your OTP is: ${otp}</h2><p>Valid for 1 minute</p>`
@@ -2083,7 +2081,7 @@ app.post("/api/match/approve", async (req, res) => {
       // Email to Donor
         if (donor.email) {
          await transporter.sendMail({
-          from: process.env.EMAIL_USER,
+          from: process.env.EMAIL_SENDER,
           to: donor.email,
           subject: "🎉 Organ Donation Match Found!",
             html: `
@@ -2100,7 +2098,7 @@ app.post("/api/match/approve", async (req, res) => {
       if (recipientUser?.email) {
         await transporter.sendMail({
           to: recipientUser.email,
-          from: process.env.EMAIL_USER,
+          from: process.env.EMAIL_SENDER,
           subject: "🎉 Organ Donor Match Found!",
           html: `
             <h2>Congratulations ${recipientUser.fullName}!</h2>
