@@ -15,32 +15,38 @@ export default function Chatbot({ currentShipment, setShowChatbot }: any) {
   const [input, setInput] = useState("");
   const [isFull, setIsFull] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(true); // ✅ default minimized
+  const [isMinimized, setIsMinimized] = useState(true); // default minimized
   const [isListening, setIsListening] = useState(false);
   const chatEndRef = useRef<any>(null);
 
-  // 💾 SAVE CHAT
+  // SAVE CHAT
   useEffect(() => {
     localStorage.setItem("chatHistory", JSON.stringify(messages));
   }, [messages]);
 
-  // 🔽 AUTO SCROLL
+  // AUTO SCROLL
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // 🔊 STOP VOICE
+  // STOP VOICE
   const stopSpeech = () => {
     window.speechSynthesis.cancel();
   };
 
-  // 🔊 SPEAK
-  const speak = (text: string) => {
-    const speech = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(speech);
-  };
+ 
+ //  SPEAK CLEAN RESPONSE
+const speak = (text: string) => {
+  window.speechSynthesis.cancel();
 
-  // 🎤 VOICE INPUT
+  const cleanText = cleanAIResponse(text);
+  const speech = new SpeechSynthesisUtterance(cleanText);
+
+  speech.lang = "en-US";
+  window.speechSynthesis.speak(speech);
+};
+
+  // VOICE INPUT
   const startListening = () => {
   const SpeechRecognition =
     (window as any).SpeechRecognition ||
@@ -54,24 +60,60 @@ export default function Chatbot({ currentShipment, setShowChatbot }: any) {
   const recognition = new SpeechRecognition();
   recognition.lang = "en-US";
 
-  setIsListening(true); // 🔥 START ANIMATION
+  setIsListening(true); // START ANIMATION
 
   recognition.onresult = (event: any) => {
     setInput(event.results[0][0].transcript);
   };
 
   recognition.onend = () => {
-    setIsListening(false); // 🔥 STOP ANIMATION
+    setIsListening(false); //  STOP ANIMATION
   };
 
   recognition.start();
 };
 
-  // ✨ FORMAT
-  const formatReply = (text: string) =>
-    text.replace(/\n/g, "\n\n").replace(/\*\*(.*?)\*\*/g, "$1");
+  
+  // Clean AI response for display and speech
+  const cleanAIResponse = (text: string): string => {
+    return text
+      // Convert HTML line breaks to normal newlines
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<\/(p|div|h[1-6]|tr|li)>/gi, "\n")
+      .replace(/<[^>]*>/g, "")
 
-  // 📩 SEND MESSAGE
+      // Remove Markdown headings
+      .replace(/^\s{0,3}#{1,6}\s*/gm, "")
+
+      // Remove Markdown bold, italic, and inline code markers
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .replace(/__(.*?)__/g, "$1")
+      .replace(/~~(.*?)~~/g, "$1")
+      .replace(/`([^`]+)`/g, "$1")
+
+      // Convert Markdown links to readable text
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+
+      // Remove Markdown table separator rows
+      .replace(/^\s*\|?[\s:|-]+\|?\s*$/gm, "")
+
+      // Remove table pipes and list markers
+      .replace(/\|/g, " ")
+      .replace(/^\s*[-*+]\s+/gm, "")
+      .replace(/^\s*\d+[.)]\s+/gm, "")
+
+      // Remove leftover formatting symbols
+      .replace(/[*_~]/g, "")
+
+      // Normalize spaces and excessive blank lines
+      .replace(/[ \t]+/g, " ")
+      .replace(/\n[ \t]+/g, "\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+  };
+
+
+  // SEND MESSAGE
   const sendMessage = async () => {
     if (!input) return;
 
@@ -93,7 +135,7 @@ export default function Chatbot({ currentShipment, setShowChatbot }: any) {
 
       setIsTyping(false);
 
-      const reply = formatReply(data.reply || "No response");
+      const reply = cleanAIResponse(data.reply || "No response");
 
       const botMsg = { sender: "bot", text: reply };
       setMessages((prev: any) => [...prev, botMsg]);
@@ -146,7 +188,7 @@ export default function Chatbot({ currentShipment, setShowChatbot }: any) {
         onClick={(e) => {
           e.stopPropagation();
           setIsFull(!isFull);
-          setIsMinimized(false); // 🔥 KEY FIX
+          setIsMinimized(false); //  KEY FIX
         }}
         className="hover:bg-gray-200 p-1 rounded"
       >
@@ -226,7 +268,7 @@ export default function Chatbot({ currentShipment, setShowChatbot }: any) {
         >
           <Mic size={18} />
 
-          {/* 🔥 PULSE RING (Google Meet Style) */}
+          {/* PULSE RING (Google Meet Style) */}
           {isListening && (
             <span className="absolute inline-flex h-8 w-8 rounded-full bg-red-400 opacity-75 animate-ping"></span>
           )}
