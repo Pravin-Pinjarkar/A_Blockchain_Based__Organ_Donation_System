@@ -158,7 +158,7 @@ const Landing = () => {
       {/* Footer */}
       <footer className="border-t mt-20 py-8">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>© 2026 LifeLink TrustChain, Developed by Pravin Pinjarkar, Saving lives through blockchain technology.</p>
+          <p>© 2026 LifeLink TrustChain | Developed by the LifeLink TrustChain Team | Saving Lives Through Blockchain Technology. All Rights Reserved.</p>
         </div>
       </footer>
     </div>
